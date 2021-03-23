@@ -17,7 +17,7 @@ const movieList = [
 	},
 ];
 
-export default function CarouselWrapper() {
+export default function CarouselWrapper(props) {
 	function dots(clickHandler, isSelected, index, label) {
 		if (isSelected) {
 			return <li onClick={clickHandler} className="h-1 w-3 cursor-pointer bg-gray-100" />;

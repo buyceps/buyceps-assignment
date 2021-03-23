@@ -4,7 +4,6 @@ import getMovie from "../../api/getMovie";
 import SearchBar from "../SearchBar";
 import SearchCard from "../SearchCard";
 import Spinner from "../Spinner";
-import useInfiniteScroll from "@closeio/use-infinite-scroll";
 
 export default function SearchPage(props) {
 	const [movieList, setMovieList] = useState([]);
@@ -14,7 +13,6 @@ export default function SearchPage(props) {
 	const [hasMore, setHasMore] = useState(false);
 	const [page, setPage] = useState(1);
 	const loaderRef = useRef(null);
-	// const [page, loaderRef, scrollerRef] = useInfiniteScroll({ hasMore, distance: 1 });
 
 	async function handleSearch(values, isNew) {
 		setSearchValues(values);
@@ -24,11 +22,9 @@ export default function SearchPage(props) {
 		}
 		setLoading(true);
 		const res = await getMovie(values);
-		console.log(res);
 		if (!isEmpty(res) && res.Response === "True") {
 			setMovieList((prev) => [...prev, ...res.Search.slice(0, 9)]);
 			setError("");
-			console.log(movieList.length, res.totalResults);
 			if (res.totalResults > res.Search.length && res.totalResults > movieList.length + 9 + page) {
 				setHasMore(true);
 			} else setHasMore(false);
@@ -66,7 +62,6 @@ export default function SearchPage(props) {
 	}, []);
 
 	useEffect(() => {
-		console.log(page, hasMore);
 		if (hasMore && page > 1) {
 			const obj = { ...searchValues, page };
 			handleSearch(obj);

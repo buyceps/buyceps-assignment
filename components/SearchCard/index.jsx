@@ -28,13 +28,13 @@ export default function SearchCard({ id, setLoading }) {
 			{!isEmpty(movie) && (
 				<Link href={`/${movie.imdbID}`}>
 					<a className="card shadow-md relative flex items-center rounded-lg overflow-hidden">
-						<div className="self-stretch bg-gradient-to-b from-purple-500 to-red-300 search-card-img-div">
+						<div className="self-stretch bg-gradient-to-b from-gray-500 to-gray-300 search-card-img-div">
 							{movie.Poster && (
 								<img src={movie.Poster} className="search-card-img" alt={movie.Title} />
 							)}
 						</div>
 						<div className="info p-4 self-stretch">
-							<p className="text-2xl font-medium mb-2">{movie.Title}</p>
+							<p className="text-2xl font-medium mb-2 line-clamp-2">{movie.Title}</p>
 							{movie.Director && (
 								<p className="text-base leading-5 mb-2 font-medium">
 									<span className="block font-normal text-gray-500">Directed By -</span>
