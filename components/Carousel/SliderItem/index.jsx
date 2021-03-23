@@ -1,21 +1,22 @@
 import isEmpty from "just-is-empty";
+import Link from "next/link";
 import React, { useState } from "react";
-import getSingleMovie from "../../../api/getSingleMovie";
+import getMovie from "../../../api/getMovie";
 
 export default function SliderItem({ bgPath, id }) {
 	const [movie, setMovie] = useState({});
 
 	React.useEffect(() => {
-		async function getMovie() {
+		async function getSingleMovie() {
 			const obj = {
 				i: id,
 			};
-			const res = await getSingleMovie(obj);
+			const res = await getMovie(obj);
 			if (res && res.Response === "True") {
 				setMovie(res);
 			}
 		}
-		getMovie();
+		getSingleMovie();
 
 		return () => {
 			setMovie({});
@@ -47,12 +48,14 @@ export default function SliderItem({ bgPath, id }) {
 							</div>
 							<div className="desc text-white ">
 								<p className="desc-text mb-2 text-sm md:text-base max-w-md">"{movie.Plot}</p>
-								<button className="btn transition duration-300 hover:bg-white hover:text-gray-900 px-2 py-1 border-2 rounded-md">
-									Know more
-								</button>
+								<Link href={`/${movie.imdbID}`}>
+									<a className="btn transition duration-300 hover:bg-white hover:text-gray-900 px-2 py-1 border-2 rounded-md">
+										Know more
+									</a>
+								</Link>
 							</div>
 						</div>
-						<div className="md:w-3/4 metadata flex gap-x-2 relative text-white text-xs md:text-sm my-3 whitespace-normal  divide-x divide-gray-200">
+						<div className="md:w-3/4 metadata flex gap-x-2 relative text-white text-xs md:text-sm my-6 whitespace-normal  divide-x divide-gray-200">
 							{movie.Runtime && <p className="time">{movie.Runtime}</p>}
 							{movie.Genre && (
 								<p className="genre pl-2">{movie.Genre.split(",").slice(0, 3).join(", ")}</p>

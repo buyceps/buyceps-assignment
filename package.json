@@ -10,9 +10,11 @@
   "dependencies": {
     "just-is-empty": "^2.0.1",
     "next": "10.0.9",
+    "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-responsive-carousel": "^3.2.15"
+    "react-responsive-carousel": "^3.2.15",
+    "react-scroll-to-top": "^1.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",

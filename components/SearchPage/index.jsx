@@ -1,72 +1,99 @@
+import isEmpty from "just-is-empty";
 import React, { useEffect, useRef, useState } from "react";
+import getMovie from "../../api/getMovie";
+import SearchBar from "../SearchBar";
 import SearchCard from "../SearchCard";
-import Pagination from "react-js-pagination";
 import Spinner from "../Spinner";
+import useInfiniteScroll from "@closeio/use-infinite-scroll";
 
 export default function SearchPage(props) {
-	const { data } = props;
-	const [initialData, setInitialData] = useState([]);
-	const [activePage, setActivePage] = useState(1);
-	const [queryList, setQueryList] = useState([]);
-	const ref = useRef();
+	const [movieList, setMovieList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+	const [searchValues, setSearchValues] = useState({});
+	const [hasMore, setHasMore] = useState(false);
+	const [page, setPage] = useState(1);
+	const loaderRef = useRef(null);
+	// const [page, loaderRef, scrollerRef] = useInfiniteScroll({ hasMore, distance: 1 });
 
+	async function handleSearch(values, isNew) {
+		setSearchValues(values);
+		if (isNew) {
+			setMovieList([]);
+			setPage(1);
+		}
+		setLoading(true);
+		const res = await getMovie(values);
+		console.log(res);
+		if (!isEmpty(res) && res.Response === "True") {
+			setMovieList((prev) => [...prev, ...res.Search.slice(0, 9)]);
+			setError("");
+			console.log(movieList.length, res.totalResults);
+			if (res.totalResults > res.Search.length && res.totalResults > movieList.length + 9 + page) {
+				setHasMore(true);
+			} else setHasMore(false);
+		} else if (res.Response === "False") {
+			setError(res.Error);
+			setMovieList([]);
+			setHasMore(false);
+		}
+		setLoading(false);
+	}
 
-	const handlePage = (page) => {
-		setActivePage(page);
-		const slicedList = initialData.slice(
-			page > 1 ? page * 10 : page - 1,
-			(page > 1 ? page * 10 : page - 1) + 10
-		);
-		setQueryList(slicedList);
-		ref.current.scrollIntoView({ block: "start", behavior: "smooth" });
+	const handleObserver = (entities) => {
+		const target = entities[0];
+		if (target.isIntersecting) {
+			setPage((page) => page + 1);
+		}
 	};
 
 	useEffect(() => {
-		setQueryList(data.items.slice(0, 10));
-		setInitialData(data.items);
-		return () => {
-			setQueryList([]);
-      setInitialData([])
-      setActivePage(1)
+		var options = {
+			root: null,
+			rootMargin: "300px",
+			threshold: 1.0,
 		};
-	}, [data]);
+		// initialize IntersectionObserver
+		// and attaching to Load More div
+		const observer = new IntersectionObserver(handleObserver, options);
+		if (loaderRef.current) {
+			observer.observe(loaderRef.current);
+		}
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
+
+	useEffect(() => {
+		console.log(page, hasMore);
+		if (hasMore && page > 1) {
+			const obj = { ...searchValues, page };
+			handleSearch(obj);
+		}
+	}, [page]);
 
 	return (
-    <>
-    <div ref={ref}></div>
-		{queryList.length > 0 ? <div className="mt-5">
-			{queryList &&
-				queryList.length > 0 &&
-				queryList.map(
-					(item) =>
-						item.links &&
-						item.data &&
-						item?.links[0] &&
-						item?.data[0] && (
-							<SearchCard
-								key={item.data[0].nasa_id}
-								img={item.links[0].href}
-								title={item.data[0].title}
-								keywords={item.data[0].keywords}
-								date={item.data[0].date_created}
-							/>
-						)
-				)}
-
-			{initialData.length > 10 && (
-				<div className="flex items-center justify-center my-5 mx-auto  md:mr-10">
-					<Pagination
-						activePage={activePage}
-						itemsCountPerPage={10}
-						totalItemsCount={initialData.length - 10}
-						pageRangeDisplayed={5}
-						onChange={handlePage}
-					/>
+		<>
+			<p className="text-center my-10 text-3xl font-medium">Explore more movies</p>
+			<div className="boxed">
+				<SearchBar handleQuery={handleSearch} />
+			</div>
+			<div className="search-result">
+				{!loading && error && <p className="text-center text-xl font-bold">🙁 {error}</p>}
+				<div className="grid grid-cols-1 gap-5 md:gap-8 md:grid-cols-3 my-10">
+					{movieList &&
+						movieList.length > 0 &&
+						movieList.map((item, i) => <SearchCard key={item.imdbID + i} id={item.imdbID} />)}
 				</div>
-			)}
-		</div> : <div className="w-screen h-screen flex items-center justify-center">
-      <Spinner />
-    </div> }
-    </>
+			</div>
+			<div className="loading" ref={loaderRef}>
+				{hasMore && (
+					<div className="spinner-div h-32 flex items-center justify-center">
+						<Spinner />
+					</div>
+				)}
+			</div>
+		</>
 	);
 }

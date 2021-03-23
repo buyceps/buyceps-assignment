@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Spinner({ color }) {
+export default function Spinner(props) {
 	return (
 		<svg
 			fill="#1d4ed8"
