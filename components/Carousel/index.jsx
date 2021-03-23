@@ -1,5 +1,6 @@
 import React from "react";
-import SliderItem from "./SliderItem";
+import dynamic from "next/dynamic";
+const SliderItem = dynamic(() => import("./SliderItem"));
 import { Carousel } from "react-responsive-carousel";
 
 const movieList = [

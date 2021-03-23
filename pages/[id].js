@@ -1,9 +1,10 @@
 import React from "react";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import getMovie from "../api/getMovie";
 import isEmpty from "just-is-empty";
-import SingleMoviePage from "../components/SingleMoviePage";
 import Head from "next/head";
+
+const SingleMoviePage = dynamic(() => import ("../components/SingleMoviePage"))
 
 export default function SingleMovie(props) {
 	return (

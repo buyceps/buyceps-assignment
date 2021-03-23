@@ -1,9 +1,10 @@
 import isEmpty from "just-is-empty";
 import React, { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import getMovie from "../../api/getMovie";
-import SearchBar from "../SearchBar";
-import SearchCard from "../SearchCard";
-import Spinner from "../Spinner";
+const SearchBar = dynamic(() => import("../SearchBar"));
+const SearchCard = dynamic(() => import("../SearchCard"));
+const Spinner = dynamic(() => import("../Spinner"));
 
 export default function SearchPage(props) {
 	const [movieList, setMovieList] = useState([]);
@@ -62,6 +63,7 @@ export default function SearchPage(props) {
 	}, []);
 
 	useEffect(() => {
+		console.log(page);
 		if (hasMore && page > 1) {
 			const obj = { ...searchValues, page };
 			handleSearch(obj);

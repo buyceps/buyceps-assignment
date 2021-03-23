@@ -36,7 +36,7 @@ export default function SearchCard({ id, setLoading }) {
 						<div className="info p-4 self-stretch">
 							<p className="text-2xl font-medium mb-2 line-clamp-2">{movie.Title}</p>
 							{movie.Director && (
-								<p className="text-base leading-5 mb-2 font-medium">
+								<p className="text-base leading-5 mb-2 line-clamp-2 font-medium">
 									<span className="block font-normal text-gray-500">Directed By -</span>
 									{movie.Director}
 								</p>

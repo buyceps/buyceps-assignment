@@ -6,7 +6,7 @@ import getMovie from "../../../api/getMovie";
 export default function SingleMovie({ movie }) {
 	return (
 		<>
-			<div className="banner  pt-48 relative">
+			<div className="banner pt-48 relative">
 				<Link href="/">
 					<a className="close-btn left-5 md:left-36 top-5 cursor-pointer z-50 text-gray-100 bg-gray-500 absolute p-1 rounded-full">
 						<svg
@@ -72,7 +72,7 @@ export default function SingleMovie({ movie }) {
 					</div>
 				</div>
 			</div>
-			<div className="pt-16 md:pt-32 pb-10 bg-gray-200">
+			<div className="pt-16 md:pt-24 bg-gray-200">
 				<div className="block boxed md:hidden">
 					<p className="text-gray-800">
 						<span className="text-4xl md:text-5xl  font-bold">{movie.Title}</span>
@@ -108,17 +108,22 @@ export default function SingleMovie({ movie }) {
 						)}
 					</div>
 				</div>
-				<div className="boxed flex flex-col md:flex-row">
+				<div className="boxed flex flex-col md:flex-row pb-10">
 					<p className="font-bold text-2xl text-gray-700">Plot:</p>
 					<p className="leading-relaxed pt-1 md:ml-24 font-medium text-gray-800">{movie.Plot}</p>
 				</div>
-				<div className="boxed my-10 grid grid-cols-2 md:grid-cols-4 gap-10">
-					{movie.Actors.split(",").map((item) => (
-						<div key={item} className="actore">
-							<p className="font-medium text-gray-400">Actor</p>
-							<p className="font-bold text-gray-700">{item}</p>
+				<div className="bg-gray-100 py-10">
+					<div className="boxed flex flex-col md:flex-row">
+						<p className="font-bold text-2xl text-gray-700">Crew:</p>
+						<div className="grid md:ml-20 grid-cols-2 md:grid-cols-3 w-full gap-10">
+							{movie.Actors.split(",").map((item) => (
+								<div key={item} className="actore">
+									<p className="font-medium text-gray-400">Actor</p>
+									<p className="font-bold text-gray-700">{item}</p>
+								</div>
+							))}
 						</div>
-					))}
+					</div>
 				</div>
 			</div>
 		</>

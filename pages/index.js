@@ -1,6 +1,7 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Carousel from "../components/Carousel";
-import SearchPage from "../components/SearchPage";
+const SearchPage = dynamic(() => import("../components/SearchPage"));
 
 export default function Home() {
 	return (
@@ -9,7 +10,7 @@ export default function Home() {
 				<title>OMDB movies</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Carousel/>
+			<Carousel />
 			<SearchPage />
 		</>
 	);
