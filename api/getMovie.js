@@ -4,7 +4,7 @@ export default async function getMovie(queryObj) {
 	const obj = { ...queryObj, apikey: process.env.NEXT_PUBLIC_API_KEY };
 	const query = new URLSearchParams(obj).toString();
 	try {
-		const res = await fetch(`http://www.omdbapi.com/?${query}`);
+		const res = await fetch(`https://www.omdbapi.com/?${query}`);
     const movie = await res.json()
 		if (!isEmpty(movie) && movie.Response) {
       return movie
