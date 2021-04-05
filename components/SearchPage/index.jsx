@@ -63,7 +63,6 @@ export default function SearchPage(props) {
 	}, []);
 
 	useEffect(() => {
-		console.log(page);
 		if (hasMore && page > 1) {
 			const obj = { ...searchValues, page };
 			handleSearch(obj);

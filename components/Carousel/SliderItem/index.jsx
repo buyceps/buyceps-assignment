@@ -1,27 +1,7 @@
 import Link from "next/link";
-import React, { useState } from "react";
-import getMovie from "../../../api/getMovie";
+import React from "react";
 
-export default function SliderItem({ bgPath, id }) {
-	const [movie, setMovie] = useState({});
-
-	React.useEffect(() => {
-		async function getSingleMovie() {
-			const obj = {
-				i: id,
-			};
-			const res = await getMovie(obj);
-			if (res && res.Response === "True") {
-				setMovie(res);
-			}
-		}
-		getSingleMovie();
-
-		return () => {
-			setMovie({});
-		};
-	}, [id]);
-
+export default function SliderItem({ bgPath, movie }) {
 	return (
 		<>
 			<div className="carousel-bg h-full relative">

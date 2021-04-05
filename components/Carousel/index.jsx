@@ -3,21 +3,6 @@ import dynamic from "next/dynamic";
 const SliderItem = dynamic(() => import("./SliderItem"));
 import { Carousel } from "react-responsive-carousel";
 
-const movieList = [
-	{
-		id: "tt0816692",
-		path: "/interstellar.webp",
-	},
-	{
-		id: "tt0451279",
-		path: "/wonderWoman.webp",
-	},
-	{
-		id: "tt0974015",
-		path: "/justiceLeague.webp",
-	},
-];
-
 export default function CarouselWrapper(props) {
 	function dots(clickHandler, isSelected, index, label) {
 		if (isSelected) {
@@ -36,8 +21,8 @@ export default function CarouselWrapper(props) {
 				showArrows={false}
 				showThumbs={false}
 				renderIndicator={dots}>
-				{movieList.map((item) => (
-					<SliderItem key={item.id} bgPath={item.path} id={item.id} />
+				{props.movie.map((item) => (
+					<SliderItem key={item.movie.imdbID} bgPath={item.path} movie={item.movie} />
 				))}
 			</Carousel>
 		</>
