@@ -12,20 +12,6 @@ export default function SearchPage(props) {
 			<div className="boxed">
 				<SearchBar />
         {/* Display Search results here */}
-        <div className="sample-data">
-          <p className="my-5 font-medium">Sample Data</p>
-          {/* Sample api response for term "interstellar" is included to get you started */}
-          {
-            Data.Search.map((movie) => (
-              <div className="mb-5" key={movie.imdbID}>
-                <p>{movie.Title}</p>
-                <p>{movie.Poster}</p>
-                <p>{movie.Year}</p>
-                <p>{movie.imdbID}</p>
-              </div>
-            ))
-          }
-        </div>
 			</div>
 		</>
 	);
