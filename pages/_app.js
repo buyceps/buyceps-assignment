@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import "../styles/carousel.css";
 import "tailwindcss/tailwind.css";
 import Layout from "../components/Layout";
 import NProgress from "nprogress";

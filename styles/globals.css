@@ -9,14 +9,6 @@ body {
 	scroll-behavior: smooth;
 }
 
-@font-face {
-  font-family: "oskari";
-  src: url("/public/fonts/oskari-g2-regular.otf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap; 
-}
-
 .boxed {
 	width: 80%;
 	margin: 0 auto;
