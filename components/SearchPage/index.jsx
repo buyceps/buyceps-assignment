@@ -23,7 +23,7 @@ export default function SearchPage(props) {
 
 	console.log(movieData);
 
-	const api = `http://www.omdbapi.com/?`;
+	const api = `https://www.omdbapi.com/?`;
 
 	const apiKey = `apikey=3877b0d8`;
 
