@@ -11,8 +11,8 @@ export default function SearchPage({movieList, setmovieList}) {
 			<div key = {i} className = "rounded rounded-4 grid grid-cols-2 md:grid-cols-2 gap-2" style = {{background:"#caf7e3"}}>
 				<img className = "rounded rounded-4" src = {item.Poster} alt = {item.Title}/>
 				<div>
-					<h4>{item.Title}</h4>
-					<h4>Type:{item.Type} {item.Year}</h4>
+					<p style= {{fontWeight: "600"}}>{item.Title}</p>
+					<h4>Type: {item.Type} {item.Year}</h4>
 				</div>
 				
 			</div>

@@ -12,21 +12,40 @@ export default function SearchBar({movieList, setmovieList}) {
 		if(Number(title) === 0){
 			return;
 		}else{
-			fetch(`http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
-			.then(response => response.json())
-			.then(result => {
-				if(result.Response === "False"){
-					console.log("you got an error");
-					alert("Please enter valid name");
-					return;
-				}else{
-					console.log(result);
-				}
-				settotalResult(result.totalResults);
-				let newArr = result.Search;
-				let newList = [...movieList, ...newArr];
-				setmovieList(newList);
-			})
+			if(window.location.protocol === 'http:'){
+				fetch(`http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
+				.then(response => response.json())
+				.then(result => {
+					if(result.Response === "False"){
+						console.log("you got an error");
+						alert("Please enter valid name");
+						return;
+					}else{
+						console.log(result);
+					}
+					settotalResult(result.totalResults);
+					let newArr = result.Search;
+					let newList = [...movieList, ...newArr];
+					setmovieList(newList);
+				})
+			}else{
+				fetch(`https://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
+				.then(response => response.json())
+				.then(result => {
+					if(result.Response === "False"){
+						console.log("you got an error");
+						alert("Please enter valid name");
+						return;
+					}else{
+						console.log(result);
+					}
+					settotalResult(result.totalResults);
+					let newArr = result.Search;
+					let newList = [...movieList, ...newArr];
+					setmovieList(newList);
+				})
+			}
+			
 		}
 			
 	}
