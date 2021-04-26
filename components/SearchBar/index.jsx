@@ -17,6 +17,8 @@ export default function SearchBar({movieList, setmovieList}) {
 			.then(result => {
 				if(result.Response === "False"){
 					console.log("you got an error");
+					alert("Please enter valid name");
+					return;
 				}else{
 					console.log(result);
 				}

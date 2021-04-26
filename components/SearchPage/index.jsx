@@ -8,10 +8,13 @@ export default function SearchPage({movieList, setmovieList}) {
 
 	const showData = (arr) =>{
 		return(arr.map((item, i) => (
-			<div key = {i}>
-				<img src = {item.Poster} alt = {item.Title}/>
-				<p>{item.Title}</p>
-				<h4>Type:{item.Type} {item.Year}</h4>
+			<div key = {i} className = "rounded rounded-4 grid grid-cols-2 md:grid-cols-2 gap-2" style = {{background:"#caf7e3"}}>
+				<img className = "rounded rounded-4" src = {item.Poster} alt = {item.Title}/>
+				<div>
+					<h3>{item.Title}</h3>
+					<h4>Type:{item.Type} {item.Year}</h4>
+				</div>
+				
 			</div>
 			
 		)))
@@ -27,10 +30,10 @@ export default function SearchPage({movieList, setmovieList}) {
 					/>
 				<div>
 					{movieList.length !== 0 ? (
-						<div className = "grid grid-cols-2 md:grid-cols-4 gap-4">
+						<div className = "grid grid-cols-2 md:grid-cols-3 gap-4">
 							{showData(movieList)}
 						</div>
-					) : <div className = "grid grid-cols-2 md:grid-cols-4 gap-4">
+					) : <div className = "grid grid-cols-2 md:grid-cols-3 gap-4">
 						{showData(Data.Search)}
 					</div>}
 				</div>
