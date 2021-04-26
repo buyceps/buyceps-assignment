@@ -21,9 +21,9 @@ export default function SearchPage(props) {
 		setMovieData(initialData);
 	}, [])
 
-	console.log(movieData);
+	// console.log(movieData);
 
-	const api = `https://www.omdbapi.com/?`;
+	const api = `http://www.omdbapi.com/?`;
 
 	const apiKey = `apikey=3877b0d8`;
 
