@@ -24,27 +24,60 @@ export default function SearchPage(props) {
 	// console.log(movieData);
 
 	const api = `http://www.omdbapi.com/?`;
+	const apiS = `https://www.omdbapi.com/?`;
 
 	const apiKey = `apikey=3877b0d8`;
 
 	const fetchMovieData = () => {
-		if(id !== "") {
 
-			fetch(`${api}i=${id}&${apiKey}`)
-			.then((response) => response.json())
-			.then((result) => {
-				// console.log(result);
-				setMovie(result)
-			});
 
-		} else if( title !== "") {
-			fetch(`${api}t=${title}&${apiKey}`)
-			.then((response) => response.json())
-			.then((result) => {
-				// console.log(result);
-				setMovie(result)
-			});
+		if(window.location.protocol === 'http:') {
+			if(id !== "") {
+
+			
+
+				fetch(`${api}i=${id}&${apiKey}`)
+				.then((response) => response.json())
+				.then((result) => {
+					// console.log(result);
+					setMovie(result)
+				});
+	
+			} else if( title !== "") {
+				fetch(`${api}t=${title}&${apiKey}`)
+				.then((response) => response.json())
+				.then((result) => {
+					// console.log(result);
+					setMovie(result)
+				});
+			}
+
+
+		} else {
+			
+			if(id !== "") {
+
+			
+
+				fetch(`${apiS}i=${id}&${apiKey}`)
+				.then((response) => response.json())
+				.then((result) => {
+					// console.log(result);
+					setMovie(result)
+				});
+	
+			} else if( title !== "") {
+				fetch(`${apiS}t=${title}&${apiKey}`)
+				.then((response) => response.json())
+				.then((result) => {
+					// console.log(result);
+					setMovie(result)
+				});
+			}
 		}
+
+		
+		
 	}
 
 	const flag = ( id !== "" || title !== "");
