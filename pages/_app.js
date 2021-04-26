@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import NProgress from "nprogress";
 import Head from "next/head";
 import Router from "next/router";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Router.onRouteChangeStart = url => {
   NProgress.start()
