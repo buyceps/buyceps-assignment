@@ -10,7 +10,6 @@ export default function SearchPage(props) {
 //   console.log(Data.Search)
 	const initialData = Data.Search;
 
-
 	const [title, setTitle] = useState("");
 	const [year, setYear] = useState("");
 	const [id, setId] = useState("");
@@ -23,6 +22,8 @@ export default function SearchPage(props) {
 
 	// console.log(movieData);
 
+	
+
 	const api = `http://www.omdbapi.com/?`;
 	const apiS = `https://www.omdbapi.com/?`;
 
@@ -33,8 +34,6 @@ export default function SearchPage(props) {
 
 		if(window.location.protocol === 'http:') {
 			if(id !== "") {
-
-			
 
 				fetch(`${api}i=${id}&${apiKey}`)
 				.then((response) => response.json())
