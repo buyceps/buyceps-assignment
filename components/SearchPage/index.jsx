@@ -64,7 +64,7 @@ export default function SearchPage(props) {
 				});
 	
 			} else if( title !== "") {
-				fetch(`${apiS}t=${title}&${apiKey}`)
+				fetch(`${apiS}s=${title}&${apiKey}`)
 				.then((response) => response.json())
 				.then((result) => {
 					// console.log(result);
