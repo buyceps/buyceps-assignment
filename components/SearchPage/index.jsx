@@ -43,11 +43,11 @@ export default function SearchPage(props) {
 				});
 	
 			} else if( title !== "") {
-				fetch(`${api}t=${title}&${apiKey}`)
+				fetch(`${api}s=${title}&${apiKey}`)
 				.then((response) => response.json())
 				.then((result) => {
 					// console.log(result);
-					setMovie(result)
+					setMovieData(result.Search)
 				});
 			}
 
@@ -55,8 +55,6 @@ export default function SearchPage(props) {
 		} else {
 			
 			if(id !== "") {
-
-			
 
 				fetch(`${apiS}i=${id}&${apiKey}`)
 				.then((response) => response.json())
@@ -70,7 +68,7 @@ export default function SearchPage(props) {
 				.then((response) => response.json())
 				.then((result) => {
 					// console.log(result);
-					setMovie(result)
+					setMovieData(result.Search)
 				});
 			}
 		}
@@ -79,7 +77,7 @@ export default function SearchPage(props) {
 		
 	}
 
-	const flag = ( id !== "" || title !== "");
+	const flag = ( id !== "" );
 
 	return (
 		<>
