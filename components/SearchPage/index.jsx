@@ -15,19 +15,13 @@ export default function SearchPage(props) {
 	const [id, setId] = useState("");
 	const [movieData, setMovieData] = useState([]);
 	const [movie, setMovie] = useState({});
+	const [pageNum, setPageNum] = useState(1);
 
 	useEffect(() => {
 		setMovieData(initialData);
 	}, [])
 
 	// console.log(movieData);
-
-	
-
-	// const api = `http://www.omdbapi.com/?`;
-	// const apiS = `https://www.omdbapi.com/?`;
-
-	// const apiKey = `apikey=3877b0d8`;
 
 	const fetchMovieData = () => {
 
@@ -51,10 +45,10 @@ export default function SearchPage(props) {
 			});
 
 		} else if( title !== "") {
-			fetch(`${api}s=${title}&${apiKey}`)
+			fetch(`${api}s=${title}&page=${pageNum}&${apiKey}`)
 			.then((response) => response.json())
 			.then((result) => {
-				// console.log(result);
+				console.log(result);
 				setMovieData(result.Search)
 			});
 		}
