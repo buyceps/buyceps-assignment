@@ -19,7 +19,7 @@ export default function SearchBar({movieList, setmovieList}) {
 		if(Number(title) === 0){
 			console.log("no input")
 		}else{
-			fetch (window.location.protocol === 'http:' ? `http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000` : `http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
+			fetch (window.location.protocol === 'http:' ? `http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000` : `https://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
 				.then(response => response.json())
 				.then(result => {
 					console.log(result);
