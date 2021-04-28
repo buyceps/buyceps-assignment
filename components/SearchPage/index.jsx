@@ -16,9 +16,11 @@ export default function SearchPage(props) {
 	const [movieData, setMovieData] = useState([]);
 	const [movie, setMovie] = useState({});
 	const [pageNum, setPageNum] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
 
 	useEffect(() => {
 		setMovieData(initialData);
+
 	}, [])
 
 	// console.log(movieData);
@@ -45,16 +47,26 @@ export default function SearchPage(props) {
 			});
 
 		} else if( title !== "") {
+
+			// if(movieData.length > 200) {
+			// 	setHasMore(false);
+			// 	return;
+			// }
+
+			// setPageNum(pageNum => pageNum + 1);
+
 			fetch(`${api}s=${title}&page=${pageNum}&${apiKey}`)
 			.then((response) => response.json())
 			.then((result) => {
 				console.log(result);
-				setMovieData(result.Search)
+				setMovieData((prevData) => [...prevData, ...result.Search])
 			});
 		}
 		
 		
 	}
+
+	
 
 	const flag = ( id !== "" );
 
@@ -62,8 +74,8 @@ export default function SearchPage(props) {
 		<>
 			<p className="text-center my-10 text-3xl font-medium">Explore movies</p>
 			<div className="boxed">
-				<SearchBar title={title} year={year} id={id} setTitle={setTitle} setYear={setYear} setId={setId} fetchMovieData={fetchMovieData} />
-				{ flag ? <Movie movie={movie}/> : <MovieList movieData={movieData}/> }
+				<SearchBar title={title} year={year} id={id} setTitle={setTitle} setYear={setYear} setId={setId} fetchMovieData={fetchMovieData} setMovieData={setMovieData}/>
+				{ flag ? <Movie movie={movie}/> : <MovieList movieData={movieData} fetchMovieData={fetchMovieData} setHasNext={setHasMore} setPageNum={fetchMovieData}/> }
 				
 			</div>
 		</>

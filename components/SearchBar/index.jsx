@@ -10,6 +10,7 @@ export default function SearchBar(props) {
 			return;
 		} else {
 			setError("");
+			props.setMovieData([]);
 			props.fetchMovieData();
 		}
 	}
