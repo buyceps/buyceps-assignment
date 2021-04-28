@@ -2,69 +2,47 @@ import React, { useEffect, useState } from "react";
 
 export default function SearchBar({movieList, setmovieList}) {
 	const [title, settitle] = useState("");
-	const [movieID, setmovieID] = useState("");
-	const [year, setyear] = useState("");
 	const [pageNum, setpageNum] = useState(1);
 	const [totalResult, settotalResult] = useState("");
+	const [dataLoaded, setdataLoaded] = useState(false);
 	
 
-	const getMovie = () => {
-		if(Number(title) === 0){
-			return;
-		}else{
-			if(window.location.protocol === 'http:'){
-				fetch(`http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
-				.then(response => response.json())
-				.then(result => {
-					if(result.Response === "False"){
-						console.log("you got an error");
-						alert("Please enter valid name");
-						return;
-					}else{
-						console.log(result);
-					}
-					settotalResult(result.totalResults);
-					let newArr = result.Search;
-					let newList = [...movieList, ...newArr];
-					setmovieList(newList);
-				})
-			}else{
-				fetch(`https://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
-				.then(response => response.json())
-				.then(result => {
-					if(result.Response === "False"){
-						console.log("you got an error");
-						alert("Please enter valid name");
-						return;
-					}else{
-						console.log(result);
-					}
-					settotalResult(result.totalResults);
-					let newArr = result.Search;
-					let newList = [...movieList, ...newArr];
-					setmovieList(newList);
-				})
-			}
-			
-		}
-			
+	const handelClick = () => {
+		setdataLoaded(true)
 	}
+
 	useEffect(() => {
 		let totalPageResult = movieList.length;
 		if(totalResult === totalPageResult){
 			return;
 		}
-		window.addEventListener('scroll', () =>{
-      	if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
-			 setpageNum(pageNum + 1);
-			 getMovie();
-      		}
+		if(Number(title) === 0){
+			console.log("no input")
+		}else{
+			fetch (`http://www.omdbapi.com/?s=${title}&page=${pageNum}&apikey=8fcd8000`)
+				.then(response => response.json())
+				.then(result => {
+					console.log(result);
+					settotalResult(result.totalResults);
+					let newArr = result.Search;
+					let newList = [...movieList, ...newArr];
+					setmovieList(newList);
+				})
+				window.onscroll = function(){
+					if(
+						window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+					){
+						scrollPage()
+					}
+				}
+		}
+		
+	}, [pageNum, dataLoaded])
 
-     	})
-    	return () => {
-			window.removeEventListener('scroll', ()=>{});
-	  	}
-	}, [pageNum])
+	const scrollPage = () => {
+		setpageNum(pageNum + 1);
+	}
+
 	
 
 	return (
@@ -101,7 +79,7 @@ export default function SearchBar({movieList, setmovieList}) {
 					<button
 						type="submit"
 						className=" search-btn text-white font-bold p-1 rounded col-span-2 md:col-auto bg-yellow-400 focus:outline-none focus:shadow-outline"
-						onClick = {getMovie}>
+						onClick = {handelClick}>
 						Search
 					</button>
 				</div>

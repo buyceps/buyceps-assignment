@@ -4,7 +4,8 @@ import Data from '../../public/sampleData.json'
 import { data } from "autoprefixer";
 const SearchBar = dynamic(() => import("../SearchBar"));
 
-export default function SearchPage({movieList, setmovieList}) {
+export default function SearchPage() {
+	const [movieList, setmovieList] = useState([]);
 
 	const showData = (arr) =>{
 		return(arr.map((item, i) => (
@@ -16,7 +17,6 @@ export default function SearchPage({movieList, setmovieList}) {
 				</div>
 				
 			</div>
-			
 		)))
 	}
 
